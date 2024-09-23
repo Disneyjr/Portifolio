@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfólio de Disney Teixeira</title>
+    <link rel="stylesheet" href="/src/styles.css">
+    <style>
+        /* Reset de Estilos */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilos Gerais */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    background: #333333;
+    color: #fff;
+    text-align: center;
+    padding: 80px 0;
+}
+
+header h1 {
+    font-size: 3em;
+    margin-bottom: 0.5em;
+}
+header h2{
+    font-family:'Courier New', Courier, monospace;
+}
+header p {
+    font-size: 1.5em;
+}
+
+section {
+    padding: 40px 0;
+}
+
+h2 {
+    font-size: 2em;
+    margin-bottom: 1em;
+}
+
+.project {
+    background: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+footer {
+    text-align: center;
+    padding: 10px;
+    background: #333;
+    color: #fff;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Media Query para Responsividade */
+@media (max-width: 768px) {
+    header {
+        padding: 60px 0;
+    }
+    header h1 {
+        font-size: 2.5em;
+    }
+    header p {
+        font-size: 1.2em;
+    }
+    .container {
+        padding: 10px;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <img style="border-radius: 40%;" width="300px" height="300px" src="disney.png">
+            <h1>Disney Teixeira da Silva Junior</h1>
+            <h2 class="titulo-principal" hidden>Desenvolvedor Back End </h2>
+            <p style="display: flex;flex-wrap: nowrap;justify-content: center;align-items: center;flex-direction: row;column-gap: 15px;">
+                <img width="40" height="40" src="csharp.png" /> 
+                <img width="40" height="40" src="Microsoft SQL Server.png" /> 
+                <img width="40" height="40" src="NET core.png" /> 
+                <img width="40" height="40" src="NET.png" /> 
+                <img width="40" height="40" src="MongoDB.png" /> 
+                <img width="40" height="40" src="GitLab.png" /> 
+                <img width="40" height="40" src="GitHub.png" />
+            </p>
+        </div>
+    </header>
+
+    <section id="about">
+        <div class="container">
+            <h2>Sobre Mim</h2>
+            <p>Como desenvolvedor back end no Mercado Eletrônico, contribuo para a criação de soluções eficientes e escaláveis para o comércio eletrônico B2B. Trabalho com as tecnologias GitFlow, Model-View-Controller (MVC) e Blazor, utilizando as linguagens C# e ASP.NET Core.
+                <br />
+                Sou formado em Tecnologia em Informática/Software pelo Senac Brasil, onde aprendi os fundamentos do desenvolvimento web e de software. Tenho mais de três anos de experiência na área, tendo atuado como desenvolvedor full stack em empresas como Plus-IT Tech e Nota Control. Busco constantemente me atualizar e aprimorar minhas competências, tendo obtido certificações em C# e ASP.NET Core.</p>
+        </div>
+    </section>
+
+    <section id="projects">
+        <div class="container">
+            <h2>Projetos</h2>
+            <div class="project">
+                <h3>Projeto 1</h3>
+                <p>Descrição do Projeto 1.</p>
+            </div>
+            <div class="project">
+                <h3>Projeto 2</h3>
+                <p>Descrição do Projeto 2.</p>
+            </div>
+        </div>
+    </section>
+    <section id="contact">
+        <div class="container">
+            <h2>Contato</h2>
+            <p>Email: dineyteixeira@gmail.com</p>
+            <p>Telefone: (67) 9 98142-7177</p>
+            <p>GitHub: <a href="https://github.com/Disneyjr">Disneyjr</a></p>
+        </div>
+    </section>
+
+    <script src="/src/script.js"></script>
+    <script>
+        function typeWrite(elemento){
+    const textoArray = elemento.innerHTML.split('');
+    elemento.innerHTML = ' ';
+    textoArray.forEach(function(letra, i){   
+      
+    setTimeout(function(){
+        elemento.innerHTML += letra;
+    }, 75 * i)
+
+  });
+}
+
+setTimeout(function(){ 
+    const titulo = document.querySelector('.titulo-principal');
+    titulo.hidden = false;
+    typeWrite(titulo);
+}, 4000);
+    </script>
+</body>
+</html>
