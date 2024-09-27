@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfólio - Disney</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="icon" sizes="32x32" href="imagens/Icon/favicon-32x32.png">
+    <link rel="icon" sizes="16x16" href="imagens/Icon/favicon-16x16.png">
 </head>
-<!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-8XKNL94B7K"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -37,35 +38,50 @@
     <section id="about">
         <div class="container">
             <h2>Sobre Mim</h2>
-            <p>Como desenvolvedor back end, contribuo para a criação de soluções eficientes e escaláveis. Trabalho com as tecnologias da plataforma .NET.
+            <p>Como desenvolvedor, contribuo para a criação de soluções eficientes e escaláveis. Trabalho com as tecnologias da plataforma .NET com a linguagem C#.
+                <li>.NET Core</li>
+                <li>.NET Framework</li>
+                <li>Blazor</li>
+                <li>ASP .NET</li>
+                <li>SignalR</li>
+                <li>Xamarin</li>
+                <li>Entity Framework</li>
+                <li>MAUI</li>
+                <li>ASP.NET Razor Pages</li>
                 <br />
-                Sou formado em Tecnologia em Informática/Software pelo Senac Brasil, onde aprendi os fundamentos do desenvolvimento web e de software. Tenho mais de 5 anos de experiência na área, tendo atuado como desenvolvedor full stack em empresas como Plus-IT Tech e Nota Control. Busco constantemente me atualizar e aprimorar minhas competências.</p>
+                Sou formado em Tecnologia em Informática/Software pelo Senac Brasil, onde aprendi os fundamentos do desenvolvimento web e de software. Tenho mais de 5 anos de experiência na área, tendo atuado como desenvolvedor full stack em empresas como Nota Control, Plus-IT Tech, Mercado Eletrônico. Busco constantemente me atualizar e aprimorar minhas competências.</p>
         </div>
     </section>
-<!--
-    <section id="projects">
-        <div class="container">
-            <h2>Projetos</h2>
-            <div class="project">
-                <h3>Projeto 1</h3>
-                <p>Descrição do Projeto 1.</p>
+    <section id="projects" style="padding: 40px 20px; background-color: #f9f9f9;">
+        <div class="container" style="max-width: 1200px; margin: auto;">
+            <h2 style="text-align: center; font-size: 2.5em; margin-bottom: 20px;">Projetos</h2>
+            <div class="projects-grid" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;">
+                <div class="project card" style="background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 20px; width: 300px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
+                    <h3 style="font-size: 1.8em; margin-bottom: 10px;">Portfólio</h3>
+                    <p style="font-size: 1em; color: #555;">Como desenvolvedor focado no Back End meu primeiro projeto pessoal foi meu próprio portfólio.</p>
+                    <br>
+                    <p style="font-size: 1em; color: #555;">Tecnologias Utilizadas</p>
+                    <li>HTML</li>
+                    <li>CSS</li>
+                    <li>JS</li>
+                </div>
+                <!-- 
+                <div class="project card" style="background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 20px; width: 300px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
+                    <h3 style="font-size: 1.8em; margin-bottom: 10px;">Projeto 2</h3>
+                    <p style="font-size: 1em; color: #555;">Descrição do Projeto 2. Uma breve explicação sobre o que foi feito e os resultados alcançados.</p>
+                </div>
+                -->
             </div>
-            <div class="project">
-                <h3>Projeto 2</h3>
-                <p>Descrição do Projeto 2.</p>
-            </div>
         </div>
     </section>
-    -->
-    <section id="contact">
-        <div class="container">
-            <h2>Contato</h2>
-            <p>Email: dineyteixeira@gmail.com</p>
-            <p>Telefone: (67) 9 98142-7177</p>
-            <p>GitHub: <a href="https://github.com/Disneyjr">Disneyjr</a></p>
+    <section id="contact" style="padding: 40px 20px; background-color: #f4f4f4;">
+        <div class="container" style="max-width: 1200px; margin: auto; text-align: center;">
+            <h2 style="font-size: 2.5em; margin-bottom: 20px;">Contato</h2>
+            <p style="font-size: 1.2em; margin: 10px 0;">Email: <a href="mailto:dineyteixeira@gmail.com" style="color: #007BFF; text-decoration: none;">dineyteixeira@gmail.com</a></p>
+            <p style="font-size: 1.2em; margin: 10px 0;">Telefone: <span onclick="window.open('https://api.whatsapp.com/send/?phone=5567981427177&text&type=phone_number&app_absent=0','_blank')" style="color: #007BFF; cursor: pointer;">(67) 9 98142-7177</span></p>
+            <p style="font-size: 1.2em; margin: 10px 0;">GitHub: <a target="_blank" href="https://github.com/Disneyjr" style="color: #007BFF; text-decoration: none;">Disneyjr</a></p>
         </div>
     </section>
-
     <script src="/src/script.js"></script>
     <script>
         function typeWrite(elemento){
@@ -84,7 +100,7 @@ setTimeout(function(){
     const titulo = document.querySelector('.titulo-principal');
     titulo.hidden = false;
     typeWrite(titulo);
-}, 4000);
+}, 1000);
     </script>
 </body>
 </html>
