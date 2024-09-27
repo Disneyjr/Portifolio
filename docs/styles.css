@@ -3,7 +3,17 @@
     padding: 0;
     box-sizing: border-box;
 }
+.imagem-container {
+    overflow: hidden; /* Para evitar que a imagem ultrapasse a div */
+}
 
+.imagem-nitida {
+    width: 300px;
+    border-radius: 30%;
+    height: auto;
+    filter: brightness(1.1) contrast(1.1);
+    image-rendering: crisp-edges;
+}
 /* Estilos Gerais */
 body {
     font-family: Arial, sans-serif;
