@@ -1,4 +1,20 @@
 baseURL: https://Disneyjr.github.io/Portifolio/
 languageCode: pt-br
-title: Disney Junior - Portfólio
+title: Disney Junior - Portfólio & Blog
+theme: ananke
 publishDir: public
+
+params:
+  favicon: ""
+  description: "Meu Portfólio e Blog Pessoal"
+  background_color_class: "bg-black"
+  recent_posts_number: 3
+
+menu:
+  main:
+    - name: "Voltar ao Portfólio"
+      url: "../"
+      weight: 1
+    - name: "Todos os Posts"
+      url: "/blog/"
+      weight: 2
