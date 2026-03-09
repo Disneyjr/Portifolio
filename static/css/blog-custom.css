@@ -1,0 +1,105 @@
+:root {
+    --primary: #262626;
+    --accent: #0066cc;
+    --accent-dark: #0052a3;
+    --light: #f5f5f5;
+    --dark: #1a1a1a;
+    --text: #262626;
+    --text-secondary: #757575;
+    --border: #e0e0e0;
+    --success: #27ae60;
+    --warning: #f39c12;
+}
+
+/* Sincronização com o tema Ananke */
+
+/* Fundo do Header */
+.bg-black {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent-dark) 100%) !important;
+}
+
+header.bg-black {
+    border-bottom: 4px solid var(--accent) !important;
+}
+
+/* Cor de links e acentos */
+a,
+.blue {
+    color: var(--accent) !important;
+}
+
+a:hover {
+    color: var(--accent-dark) !important;
+}
+
+/* Texto geral */
+body,
+.near-black,
+.mid-gray {
+    color: var(--text) !important;
+}
+
+.text-secondary,
+.gray {
+    color: var(--text-secondary) !important;
+}
+
+/* Barra de navegação e botões */
+.page-header a {
+    color: #ffffff !important;
+    opacity: 0.9;
+}
+
+.page-header a:hover {
+    opacity: 1;
+}
+
+.hover-white:hover {
+    color: #ffffff !important;
+    background-color: var(--accent) !important;
+}
+
+/* Customização de botões (ghost buttons no Ananke) */
+.ba.b--white {
+    border-color: rgba(255, 255, 255, 0.4) !important;
+}
+
+.ba.b--white:hover {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    border-color: #ffffff !important;
+}
+
+/* Bordas */
+.bt,
+.bb,
+.bl,
+.br,
+.b--black-10 {
+    border-color: var(--border) !important;
+}
+
+/* Cor de fundo da área de conteúdo (se o tema usar) */
+.bg-near-white {
+    background-color: var(--light) !important;
+}
+
+/* Títulos das seções/artigos */
+.f1,
+.f2,
+.f3 {
+    color: var(--primary) !important;
+}
+
+/* Footer do blog */
+footer.bg-black {
+    background: var(--primary) !important;
+    border-top: none !important;
+}
+
+footer p {
+    color: rgba(255, 255, 255, 0.7) !important;
+}
+
+footer a {
+    color: var(--accent) !important;
+}
