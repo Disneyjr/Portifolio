@@ -1,11 +1,11 @@
 baseURL: https://Disneyjr.github.io/
 languageCode: pt-br
-title: Disney Junior - Portfólio & Blog
+title: Disney Junior
 theme: ananke
 publishDir: public
 
 params:
-  favicon: ""
+  favicon: "/favicon.ico"
   description: "Meu Portfólio e Blog Pessoal"
   background_color_class: "bg-black"
   recent_posts_number: 3

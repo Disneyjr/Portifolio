@@ -1,0 +1,17 @@
+{{ define "main" }}
+<div class="bg-near-white">
+    <article class="pa3 pa4-ns nested-copy-line-height max-width-container center">
+        <section class="cf ph3 ph5-l pv3 pv4-l f4 center measure-wide lh-copy nested-links">
+            {{- .Content -}}
+        </section>
+        <section class="flex-ns flex-wrap justify-between">
+            {{ range .Paginator.Pages }}
+            <div class="w-100 w-30-l mb4 relative">
+                {{ .Render "summary" }}
+            </div>
+            {{ end }}
+        </section>
+        {{ partial "pagination.html" . -}}
+    </article>
+</div>
+{{ end }}

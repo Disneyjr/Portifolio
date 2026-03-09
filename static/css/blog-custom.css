@@ -22,6 +22,14 @@ header.bg-black {
     border-bottom: 4px solid var(--accent) !important;
 }
 
+header.bg-black h1,
+header.bg-black h2,
+header.bg-black p,
+header.bg-black .title,
+header.bg-black .location {
+    color: white !important;
+}
+
 /* Cor de links e acentos */
 a,
 .blue {
@@ -100,6 +108,116 @@ footer p {
     color: rgba(255, 255, 255, 0.7) !important;
 }
 
-footer a {
-    color: var(--accent) !important;
+/* Glassmorphism Effect for Post Containers */
+.post-container {
+    background: white !important;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+}
+
+/* AI / Human Toggle Switcher */
+.content-toggle {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin: 2rem 0;
+    padding: 0.5rem;
+    background: var(--light);
+    border-radius: 50px;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid var(--border);
+}
+
+.toggle-btn {
+    padding: 0.6rem 1.5rem;
+    border-radius: 40px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: transparent;
+    color: var(--text-secondary);
+}
+
+.toggle-btn.active {
+    background: var(--accent);
+    color: white;
+    box-shadow: 0 4px 12px rgba(0, 102, 204, 0.3);
+}
+
+.toggle-btn:hover:not(.active) {
+    background: rgba(0, 102, 204, 0.1);
+    color: var(--accent);
+}
+
+/* Content Visibility */
+.post-content {
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.hidden {
+    display: none;
+    opacity: 0;
+    transform: translateY(10px);
+}
+
+/* Sidebar / Columns Simulation */
+@media (min-width: 1024px) {
+    .blog-main {
+        display: grid;
+        grid-template-columns: 3fr 1fr;
+        gap: 2rem;
+    }
+
+    .sidebar {
+        background: var(--light);
+        padding: 1.5rem;
+        border-radius: 12px;
+        height: fit-content;
+        position: sticky;
+        top: 100px;
+    }
+}
+
+/* Enhanced Typography */
+article h1 {
+    font-size: 2.5rem !important;
+    font-weight: 800 !important;
+    letter-spacing: -0.02em;
+    background: linear-gradient(to right, var(--primary), var(--accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 1rem !important;
+}
+
+.max-width-container {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.post-meta {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 2rem;
+}
+
+/* Robot Badge for AI content */
+.ai-badge {
+    background: var(--accent);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: bold;
+    vertical-align: middle;
 }

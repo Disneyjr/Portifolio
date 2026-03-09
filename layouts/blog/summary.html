@@ -1,0 +1,60 @@
+<div class="summary-card mb4">
+    <div class="pa4">
+        {{ if .Params.ai_content }}
+        <span class="ai-badge-summary mb2">Dual Version</span>
+        {{ end }}
+        <h3 class="f2 mt0">
+            <a href="{{ .RelPermalink }}" class="link primary-color dim">
+                {{ .Title }}
+            </a>
+        </h3>
+        <div class="f5 gray lh-copy mb3">
+            {{ .Summary | truncate 200 }}
+        </div>
+        <div class="flex items-center justify-between mt3">
+            <span class="f7 silver">{{ .Date.Format "02/01/2006" }}</span>
+            <a href="{{ .RelPermalink }}" class="read-more-btn">
+                Ler Post →
+            </a>
+        </div>
+    </div>
+</div>
+
+<style>
+    .summary-card {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+        border: 1px solid var(--border);
+    }
+
+    .summary-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+        border-color: var(--accent);
+    }
+
+    .primary-color {
+        color: var(--primary);
+    }
+
+    .read-more-btn {
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: var(--accent);
+        text-decoration: none;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .ai-badge-summary {
+        background: #e6f0ff;
+        color: var(--accent);
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-size: 0.7rem;
+        font-weight: bold;
+        display: inline-block;
+    }
+</style>
