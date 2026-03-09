@@ -18,16 +18,30 @@
     background: linear-gradient(135deg, var(--primary) 0%, var(--accent-dark) 100%) !important;
 }
 
-header.bg-black {
-    border-bottom: 4px solid var(--accent) !important;
+/* Forçar texto branco em todo o header, incluindo links e menus */
+header,
+header h1,
+header h2,
+header p,
+header a,
+header a:link,
+header a:visited,
+header a:hover,
+header li,
+header .title,
+header .location,
+.bg-black h1,
+.bg-black h2,
+.bg-black p,
+.bg-black a,
+.bg-black a:hover,
+.bg-black li {
+    color: white !important;
 }
 
-header.bg-black h1,
-header.bg-black h2,
-header.bg-black p,
-header.bg-black .title,
-header.bg-black .location {
-    color: white !important;
+header.bg-black,
+.bg-black {
+    border-bottom: 4px solid var(--accent) !important;
 }
 
 /* Cor de links e acentos */
