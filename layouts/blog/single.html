@@ -3,84 +3,176 @@
 {{ end }}
 
 {{ define "main" }}
-<article class="ph3 ph4-ns pv4">
+{{- $aiContent := "" -}}
+{{- with .Params.ai_content -}}
+  {{- $aiContent = strings.TrimSpace . -}}
+{{- end -}}
+{{- $hasAI := ne $aiContent "" -}}
+
+{{- $aiModel := .Params.ai_model | default "" -}}
+{{- $aiEffort := .Params.ai_effort | default "" -}}
+{{- with .Params.ai_meta -}}
+  {{- with .model }}{{ $aiModel = . }}{{ end -}}
+  {{- with .effort }}{{ $aiEffort = . }}{{ end -}}
+{{- end -}}
+
+{{- $readingTime := .ReadingTime -}}
+{{- if lt $readingTime 1 }}{{ $readingTime = 1 }}{{ end -}}
+
+<article class="blog-article-wrapper ph3 ph4-ns pv4">
     <div class="blog-main max-width-container center">
         <div class="post-container">
-            <header class="mb4">
+            <div class="mb3">
+                <a href="{{ "/blog/" | relURL }}" class="back-to-blog-link">← Voltar para todos os posts</a>
+            </div>
+
+            <header class="post-header mb4">
                 <h1 class="post-title">{{ .Title }}</h1>
-                <div class="post-meta">
+                {{ with .Description }}
+                <p class="post-subtitle">{{ . }}</p>
+                {{ end }}
+
+                <div class="post-meta-bar">
                     {{ if not .Date.IsZero }}
-                    <time {{ printf "datetime=%q" (.Date.Format "2006-01-02T15:04:05Z07:00" ) | safeHTMLAttr }}>
-                        {{ .Date | time.Format "02 de Janeiro, 2006" }}
-                    </time>
+                    <span class="meta-item">
+                        📅
+                        <time {{ printf "datetime=%q" (.Date.Format "2006-01-02T15:04:05Z07:00" ) | safeHTMLAttr }}>
+                            {{ .Date.Format "02/01/2006" }}
+                        </time>
+                    </span>
                     {{ end }}
-                    {{ if .Params.ai_content }}
-                    <span class="ml2 status-badge">Dual-Mode</span>
+
+                    <span class="meta-item" title="{{ .WordCount }} palavras">
+                        ⏱️ {{ $readingTime }} min de leitura
+                    </span>
+
+                    {{ if $hasAI }}
+                    <span class="status-badge">⚡ Dual-Mode</span>
+                    {{ with $aiModel }}
+                    <span class="llm-meta-pill llm-model-pill" title="Modelo de LLM utilizado na geração">
+                        🤖 {{ . }}
+                    </span>
+                    {{ end }}
+                    {{ with $aiEffort }}
+                    <span class="llm-meta-pill llm-effort-pill effort-{{ . | lower }}" title="Nível de esforço (Thinking Effort) configurado na LLM">
+                        🧠 Effort: {{ . | upper }}
+                    </span>
+                    {{ end }}
                     {{ end }}
                 </div>
             </header>
 
-            {{ if .Params.ai_content }}
-            <div class="content-toggle">
-                <button id="btn-human" class="toggle-btn active" onclick="showContent('human')">
-                    👤 Disney
+            {{ if $hasAI }}
+            <div class="content-toggle" role="tablist" aria-label="Alternar versão do post">
+                <button id="btn-human" class="toggle-btn active" onclick="showContent('human')" role="tab" aria-selected="true">
+                    👤 Original (Disney)
                 </button>
-                <button id="btn-ai" class="toggle-btn" onclick="showContent('ai')">
-                    🤖 Inteligência Artificial
+                <button id="btn-ai" class="toggle-btn" onclick="showContent('ai')" role="tab" aria-selected="false">
+                    🤖 Versão IA{{ with $aiModel }} <span class="toggle-subtag">{{ . }}</span>{{ end }}
+                </button>
+                <button id="btn-split" class="toggle-btn split-toggle-btn" onclick="showContent('split')" role="tab" aria-selected="false">
+                    ⚖️ Lado a Lado
                 </button>
             </div>
             {{ end }}
 
             {{/* Área de Conteúdo Dinâmica */}}
-            <div class="content-wrapper">
+            <div id="content-wrapper" class="content-wrapper">
                 {{/* Versão Humana (Padrão) */}}
                 <div id="human-content" class="post-content nested-copy-line-height lh-copy f4">
                     <div class="styled-content-box human-theme">
-                        <div class="content-badge-label mb3">👤 ORIGINAL POR DISNEY</div>
-                        <div class="content-text">
+                        <div class="content-box-header">
+                            <span class="content-badge-label human-badge">👤 ORIGINAL POR DISNEY</span>
+                            <span class="content-box-caption">Texto autoral original</span>
+                        </div>
+                        <div class="content-text markdown-body">
                             {{ .Content }}
                         </div>
                     </div>
                 </div>
 
-                {{ if .Params.ai_content }}
-                {{/* Versão I.A. (Invisível por padrão) */}}
+                {{ if $hasAI }}
+                {{/* Versão I.A. (Oculta por padrão) */}}
                 <div id="ai-content" class="post-content hidden nested-copy-line-height lh-copy f4">
                     <div class="styled-content-box ai-theme">
-                        <div class="content-badge-label mb3">🤖 PROCESSADO POR I.A.</div>
-                        <div class="ai-text">
-                            {{ .Params.ai_content | transform.Markdownify }}
+                        <div class="content-box-header ai-box-header">
+                            <span class="content-badge-label ai-badge">🤖 GERADO POR LLM</span>
+                            <div class="ai-box-specs">
+                                {{ with $aiModel }}
+                                <span class="ai-spec-badge">Modelo: <strong>{{ . }}</strong></span>
+                                {{ end }}
+                                {{ with $aiEffort }}
+                                <span class="ai-spec-badge effort-spec-{{ . | lower }}">Effort: <strong>{{ . | upper }}</strong></span>
+                                {{ end }}
+                            </div>
+                        </div>
+                        <div class="ai-text markdown-body">
+                            {{ $aiContent | transform.Markdownify }}
                         </div>
                     </div>
                 </div>
                 {{ end }}
             </div>
 
-            <div class="mt5 pt4 bt b--black-10">
-                {{ partial "tags.html" . }}
+            {{ with .Params.tags }}
+            <div class="post-tags-footer mt5 pt4 bt b--black-10">
+                <span class="tags-label">Tags:</span>
+                <div class="tags-list">
+                    {{ range . }}
+                    <a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}/" class="post-tag-pill">#{{ . }}</a>
+                    {{ end }}
+                </div>
             </div>
+            {{ end }}
         </div>
 
         <aside class="sidebar">
             <div class="sidebar-section">
-                <h3 class="f4 mb3">Sobre o Blog</h3>
-                <p class="f6 lh-copy gray">
-                    Bem-vindo ao espaço onde compartilho experiências reais e versões otimizadas por IA.
-                    Escolha como prefere consumir o conteúdo!
+                <h3 class="sidebar-title">⚡ Sobre o Dual-Mode</h3>
+                <p class="f6 lh-copy gray mb0">
+                    Cada artigo possui a minha versão autoral e uma versão expandida por IA, registrando de forma transparente <strong>qual modelo</strong> e <strong>qual nível de effort</strong> foram usados.
                 </p>
             </div>
 
+            {{ if $hasAI }}
             <div class="sidebar-section mt4">
-                <h3 class="f4 mb3">Compartilhar</h3>
-                <div class="flex gap-2">
-                    {{ partial "social/share.html" . }}
+                <h3 class="sidebar-title">🤖 Ficha Técnica da IA</h3>
+                <ul class="ai-specs-list">
+                    <li>
+                        <span>Status:</span>
+                        <strong>Dual-Mode Ativo</strong>
+                    </li>
+                    <li>
+                        <span>Modelo LLM:</span>
+                        <strong>{{ $aiModel | default "Gemini" }}</strong>
+                    </li>
+                    <li>
+                        <span>Thinking Effort:</span>
+                        <strong class="effort-text-{{ $aiEffort | default "medium" | lower }}">{{ $aiEffort | default "N/A" | upper }}</strong>
+                    </li>
+                </ul>
+            </div>
+            {{ end }}
+
+            <div class="sidebar-section mt4">
+                <h3 class="sidebar-title">🔗 Compartilhar</h3>
+                <div class="share-buttons">
+                    <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ .Permalink | urlquery }}" target="_blank" rel="noopener" class="share-btn">
+                        💼 LinkedIn
+                    </a>
+                    <a href="https://t.me/share/url?url={{ .Permalink | urlquery }}&text={{ .Title | urlquery }}" target="_blank" rel="noopener" class="share-btn">
+                        ✈️ Telegram
+                    </a>
+                    <button type="button" class="share-btn" onclick="copyPostLink(this)">
+                        📋 Copiar Link
+                    </button>
                 </div>
             </div>
 
             {{ with .Site.RegularPages.Related . | first 3 }}
             <div class="sidebar-section mt4">
-                <h3 class="f4 mb3">Relacionados</h3>
-                <ul class="list pl0">
+                <h3 class="sidebar-title">📚 Posts Relacionados</h3>
+                <ul class="list pl0 mb0">
                     {{ range . }}
                     <li class="mb2">
                         <a href="{{ .RelPermalink }}" class="link blue hover-dark-blue f6">{{ .Title }}</a>
@@ -93,118 +185,111 @@
     </div>
 </article>
 
-<style>
-    :root {
-        --project-accent: #0066cc;
-        /* Azul definido no seu projeto */
-        --project-accent-light: rgba(0, 102, 204, 0.05);
-    }
-
-    .max-width-container {
-        max-width: 1200px;
-        margin: 0 auto;
-    }
-
-    .post-container {
-        position: relative;
-    }
-
-    .post-title {
-        font-size: 2.5rem;
-        font-family: 'Athelas', 'Ibarra Real Nova', serif;
-        margin-top: 1rem;
-        margin-bottom: 0.5rem;
-        color: var(--primary);
-    }
-
-    /* ─────────────────────────────────────────────────
-       ESTILO DAS CAIXAS DE CONTEÚDO (HUMANO E IA)
-    ───────────────────────────────────────────────── */
-    .styled-content-box {
-        padding: 2rem;
-        border-radius: 0 12px 12px 0;
-        animation: fadeIn 0.4s ease-out;
-        border-left: 4px solid var(--project-accent);
-        background: var(--project-accent-light);
-    }
-
-    /* Diferenciação sutil se quiser, mas mantendo a mesma estrutura */
-    .ai-theme {
-        border-left-color: var(--project-accent);
-        background: rgba(0, 102, 204, 0.03);
-    }
-
-    @keyframes fadeIn {
-        from {
-            opacity: 0;
-            transform: translateY(5px);
-        }
-
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    .content-badge-label {
-        background: var(--project-accent);
-        color: white;
-        padding: 4px 12px;
-        border-radius: 4px;
-        font-size: 0.8rem;
-        font-weight: bold;
-        display: inline-block;
-        letter-spacing: 0.05em;
-        text-transform: uppercase;
-    }
-
-    /* Visibilidade Controlada por JS */
-    .post-content.hidden {
-        display: none;
-    }
-
-    /* Ajuste de tipografia */
-    .ai-text {
-        font-style: italic;
-        color: #333;
-    }
-
-    .status-badge {
-        background: var(--project-accent);
-        color: white;
-        padding: 2px 10px;
-        border-radius: 999px;
-        font-size: 0.7rem;
-        font-weight: 700;
-        text-transform: uppercase;
-    }
-
-    /* Sobrescrevendo o roxo anterior caso ainda exista no CSS global */
-    .ai-badge {
-        background-color: var(--project-accent) !important;
-    }
-</style>
-
 <script>
-    function showContent(type) {
+    function showContent(type, updateUrl = true) {
         const btnHuman = document.getElementById('btn-human');
         const btnAi = document.getElementById('btn-ai');
+        const btnSplit = document.getElementById('btn-split');
+        const wrapper = document.getElementById('content-wrapper');
         const humanContent = document.getElementById('human-content');
         const aiContent = document.getElementById('ai-content');
 
-        if (!btnHuman || !btnAi || !humanContent || !aiContent) return;
+        if (!btnHuman || !btnAi || !humanContent || !aiContent || !wrapper) return;
 
-        if (type === 'human') {
-            btnHuman.classList.add('active');
-            btnAi.classList.remove('active');
-            humanContent.classList.remove('hidden');
-            aiContent.classList.add('hidden');
-        } else {
-            btnHuman.classList.remove('active');
+        btnHuman.classList.remove('active');
+        btnAi.classList.remove('active');
+        if (btnSplit) btnSplit.classList.remove('active');
+        wrapper.classList.remove('split-view');
+
+        if (type === 'ai') {
             btnAi.classList.add('active');
+            btnAi.setAttribute('aria-selected', 'true');
+            btnHuman.setAttribute('aria-selected', 'false');
             humanContent.classList.add('hidden');
             aiContent.classList.remove('hidden');
+        } else if (type === 'split') {
+            if (btnSplit) {
+                btnSplit.classList.add('active');
+                btnSplit.setAttribute('aria-selected', 'true');
+            }
+            wrapper.classList.add('split-view');
+            humanContent.classList.remove('hidden');
+            aiContent.classList.remove('hidden');
+        } else {
+            btnHuman.classList.add('active');
+            btnHuman.setAttribute('aria-selected', 'true');
+            btnAi.setAttribute('aria-selected', 'false');
+            humanContent.classList.remove('hidden');
+            aiContent.classList.add('hidden');
+        }
+
+        if (updateUrl && window.history && window.history.replaceState) {
+            const url = new URL(window.location.href);
+            if (type === 'ai' || type === 'split') {
+                url.searchParams.set('view', type);
+            } else {
+                url.searchParams.delete('view');
+            }
+            window.history.replaceState({}, '', url.toString());
         }
     }
+
+    function copyPostLink(btn) {
+        navigator.clipboard.writeText(window.location.href).then(() => {
+            const original = btn.innerHTML;
+            btn.innerHTML = '✅ Link Copiado!';
+            setTimeout(() => { btn.innerHTML = original; }, 2000);
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        // 1. Ativar aba via query param (?view=ai ou ?view=split)
+        const params = new URLSearchParams(window.location.search);
+        const view = params.get('view');
+        if (view === 'ai' || view === 'split') {
+            showContent(view, false);
+        }
+
+        // 2. Adicionar botão de copiar e badge de linguagem nos blocos de código
+        document.querySelectorAll('.markdown-body pre').forEach((pre) => {
+            const code = pre.querySelector('code');
+            if (!code) return;
+
+            const wrapper = document.createElement('div');
+            wrapper.className = 'code-block-wrapper';
+            pre.parentNode.insertBefore(wrapper, pre);
+            wrapper.appendChild(pre);
+
+            const toolbar = document.createElement('div');
+            toolbar.className = 'code-toolbar';
+
+            let lang = 'code';
+            const langClass = Array.from(code.classList).find(c => c.startsWith('language-'));
+            if (langClass) {
+                lang = langClass.replace('language-', '');
+            } else if (code.dataset && code.dataset.lang) {
+                lang = code.dataset.lang;
+            }
+
+            const langSpan = document.createElement('span');
+            langSpan.className = 'code-lang-label';
+            langSpan.textContent = lang.toUpperCase();
+
+            const copyBtn = document.createElement('button');
+            copyBtn.type = 'button';
+            copyBtn.className = 'code-copy-btn';
+            copyBtn.textContent = '📋 Copiar';
+            copyBtn.addEventListener('click', () => {
+                navigator.clipboard.writeText(code.innerText).then(() => {
+                    copyBtn.textContent = '✅ Copiado!';
+                    setTimeout(() => { copyBtn.textContent = '📋 Copiar'; }, 2000);
+                });
+            });
+
+            toolbar.appendChild(langSpan);
+            toolbar.appendChild(copyBtn);
+            wrapper.insertBefore(toolbar, pre);
+        });
+    });
 </script>
 {{ end }}

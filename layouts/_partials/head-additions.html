@@ -1,5 +1,45 @@
-<link rel="stylesheet" href='{{ "css/blog-custom.css" | relURL }}'>
+{{- $title := .Title | default .Site.Title -}}
+{{- if and (not .IsHome) (ne .Title .Site.Title) -}}
+  {{- $title = printf "%s | %s" .Title .Site.Title -}}
+{{- end -}}
+{{- $description := .Description | default .Params.description | default .Summary | default .Site.Params.description | plainify | htmlUnescape | chomp -}}
+{{- $image := "/Imagens/foto_perfil.png" | absURL -}}
+{{- with .Params.featured_image -}}
+  {{- $image = . | absURL -}}
+{{- end -}}
+
+<link rel="canonical" href="{{ .Permalink }}" />
+<meta name="author" content="{{ .Site.Params.author | default "Disney Teixeira da Silva Junior" }}" />
+<meta name="description" content="{{ $description | truncate 160 }}" />
+
+<!-- Open Graph / LinkedIn / Telegram Preview -->
+<meta property="og:locale" content="pt_BR" />
+<meta property="og:site_name" content="{{ .Site.Title }}" />
+<meta property="og:title" content="{{ $title }}" />
+<meta property="og:description" content="{{ $description | truncate 200 }}" />
+<meta property="og:url" content="{{ .Permalink }}" />
+<meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}" />
+<meta property="og:image" content="{{ $image }}" />
+{{- if .IsPage }}
+  {{- if not .Date.IsZero }}
+<meta property="article:published_time" content="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}" />
+  {{- end }}
+  {{- range .Params.tags }}
+<meta property="article:tag" content="{{ . }}" />
+  {{- end }}
+{{- end }}
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="{{ $title }}" />
+<meta name="twitter:description" content="{{ $description | truncate 200 }}" />
+<meta name="twitter:image" content="{{ $image }}" />
+
+<!-- Favicons -->
 <link rel="icon" type="image/x-icon" href='{{ "favicon.ico" | relURL }}' />
 <link rel="icon" type="image/png" sizes="16x16" href='{{ "favicon-16x16.png" | relURL }}' />
 <link rel="icon" type="image/png" sizes="32x32" href='{{ "favicon-32x32.png" | relURL }}' />
 <link rel="apple-touch-icon" sizes="180x180" href='{{ "apple-touch-icon.png" | relURL }}' />
+
+<!-- Styles -->
+<link rel="stylesheet" href='{{ "css/blog-custom.css" | relURL }}' />

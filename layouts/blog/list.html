@@ -1,17 +1,33 @@
 {{ define "main" }}
-<div class="bg-near-white">
-    <article class="pa3 pa4-ns nested-copy-line-height max-width-container center">
-        <section class="cf ph3 ph5-l pv3 pv4-l f4 center measure-wide lh-copy nested-links">
+<div class="bg-near-white blog-list-wrapper">
+    <div class="pa3 pa4-ns max-width-container center">
+        <div class="blog-list-intro">
+            <div>
+                <h2 class="blog-list-heading">Publicações Recentes</h2>
+                <p class="blog-list-subtitle">
+                    Artigos sobre Engenharia de Backend (.NET &amp; Go), Microserviços e Arquitetura — no formato <strong>Dual-Mode</strong> (Texto Original + Versão Gerada por IA com registro de Modelo e Effort).
+                </p>
+            </div>
+            <a href="{{ "/" | relURL }}" class="back-portfolio-btn">← Voltar ao Portfólio</a>
+        </div>
+
+        {{- if .Content -}}
+        <section class="cf pv2 f5 measure-wide lh-copy nested-links">
             {{- .Content -}}
         </section>
-        <section class="flex-ns flex-wrap justify-between">
+        {{- end -}}
+
+        <section class="blog-cards-grid">
             {{ range .Paginator.Pages }}
-            <div class="w-100 w-30-l mb4 relative">
+            <div class="blog-grid-item">
                 {{ .Render "summary" }}
             </div>
             {{ end }}
         </section>
-        {{ partial "pagination.html" . -}}
-    </article>
+
+        <div class="mt4">
+            {{- partial "pagination.html" . -}}
+        </div>
+    </div>
 </div>
 {{ end }}

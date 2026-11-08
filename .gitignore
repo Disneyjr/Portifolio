@@ -4,6 +4,12 @@ resources/
 .hugo_build.lock
 hugo_stats.json
 
-# OS
+# Arquivos locais / Propostas comerciais avulsas
+proposta-landing-page.html
+static/proposta/
+
+# OS & Editores
 .DS_Store
 Thumbs.db
+.vscode/
+.idea/

@@ -1,14 +1,47 @@
 baseURL: https://Disneyjr.github.io/
 languageCode: pt-br
-title: Disney Junior
+defaultContentLanguage: pt-br
+title: Disney Teixeira | Software Engineer & Tech Blog
 theme: ananke
 publishDir: public
+enableRobotsTXT: true
 
 params:
+  author: "Disney Teixeira da Silva Junior"
   favicon: "/favicon.ico"
-  description: "Meu Portfólio e Blog Pessoal"
+  description: "Software Engineer (.NET & Go) — Portfólio, Arquitetura de Microserviços e Blog Técnico Dual-Mode (Humano + IA)"
+  images:
+    - "/Imagens/foto_perfil.png"
   background_color_class: "bg-black"
   recent_posts_number: 3
+  github: "https://github.com/Disneyjr"
+  linkedin: "https://linkedin.com/in/disney-teixeira"
+
+taxonomies:
+  tag: tags
+  category: categories
+
+related:
+  includeNewer: true
+  threshold: 80
+  toLower: true
+  indices:
+    - name: tags
+      weight: 100
+    - name: date
+      weight: 10
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+  highlight:
+    codeFences: true
+    guessSyntax: true
+    lineNos: false
+    noClasses: true
+    style: github-dark
+    tabWidth: 4
 
 menu:
   main:
