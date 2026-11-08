@@ -4,8 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Disney Teixeira - Software Engineer | Backend .NET & Go | Microservices">
+    <meta name="description" content="Disney Teixeira - Software Engineer | Backend .NET & Go | Microservices & Tech Blog">
     <meta name="author" content="Disney Teixeira da Silva Junior">
+    <link rel="canonical" href="{{ .Permalink }}">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Disney Teixeira - Software Engineer | Backend .NET & Go">
+    <meta property="og:description" content="Desenvolvedor Backend (.NET & Go) especialista em microserviços, APIs de alta performance e autor do Blog Técnico Dual-Mode (Humano + IA).">
+    <meta property="og:url" content="{{ .Permalink }}">
+    <meta property="og:image" content="{{ "Imagens/foto_perfil.png" | absURL }}">
+    <meta name="twitter:card" content="summary">
+    <link rel="icon" type="image/x-icon" href="./favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
     <title>Disney Teixeira - Software Engineer</title>
     <link rel="stylesheet" href="./styles.css">
 </head>
@@ -18,14 +30,14 @@
                 style="width: 120px; height: 120px; border-radius: 50%; border: 4px solid rgba(255, 255, 255, 0.3); object-fit: cover;">
             <div>
                 <h1>Disney Teixeira da Silva Junior</h1>
-                <div class="title">Software Engineer | Backend .NET & Go | Microservices</div>
+                <div class="title">Software Engineer | Backend .NET &amp; Go | Microservices</div>
                 <div class="location">🇧🇷 100% Remoto</div>
             </div>
         </div>
         <div class="social-links">
             <a href="mailto:dineyteixeira@gmail.com">📧 Email</a>
-            <a href="https://linkedin.com/in/disney-teixeira" target="_blank">💼 LinkedIn</a>
-            <a href="https://github.com/Disneyjr" target="_blank">🐙 GitHub</a>
+            <a href="https://linkedin.com/in/disney-teixeira" target="_blank" rel="noopener">💼 LinkedIn</a>
+            <a href="https://github.com/Disneyjr" target="_blank" rel="noopener">🐙 GitHub</a>
         </div>
     </header>
 
@@ -34,11 +46,12 @@
         <div class="container">
             <ul>
                 <li><a href="#about">Sobre</a></li>
-                <li><a href="#skills">Habilidades</a></li>
                 <li><a href="#experience">Experiência</a></li>
+                <li><a href="#skills">Habilidades</a></li>
                 <li><a href="#projects">Projetos</a></li>
+                <li><a href="#blog-preview">Publicações</a></li>
                 <li><a href="#education">Educação</a></li>
-                <li><a href="./blog/">Blog</a></li>
+                <li><a href="./blog/" class="nav-blog-cta">Blog ↗</a></li>
             </ul>
         </div>
     </nav>
@@ -110,7 +123,7 @@
             <h2>Habilidades Técnicas</h2>
             <div class="skills-grid">
                 <div class="skill-card">
-                    <h3>Backend & APIs</h3>
+                    <h3>Backend &amp; APIs</h3>
                     <div class="skill-tags">
                         <span class="tag">C#</span>
                         <span class="tag">.NET Core</span>
@@ -122,7 +135,7 @@
                 </div>
 
                 <div class="skill-card">
-                    <h3>Go & Concorrência</h3>
+                    <h3>Go &amp; Concorrência</h3>
                     <div class="skill-tags">
                         <span class="tag">Golang</span>
                         <span class="tag">Goroutines</span>
@@ -144,7 +157,7 @@
                 </div>
 
                 <div class="skill-card">
-                    <h3>Cloud & DevOps</h3>
+                    <h3>Cloud &amp; DevOps</h3>
                     <div class="skill-tags">
                         <span class="tag">Docker</span>
                         <span class="tag">Kubernetes</span>
@@ -166,7 +179,7 @@
                 </div>
 
                 <div class="skill-card">
-                    <h3>Mensageria & Streaming</h3>
+                    <h3>Mensageria &amp; Streaming</h3>
                     <div class="skill-tags">
                         <span class="tag">Kafka</span>
                         <span class="tag">RabbitMQ</span>
@@ -198,7 +211,7 @@
                             <span class="tech-tag">Stdlib</span>
                         </div>
                         <div class="project-links">
-                            <a href="https://github.com/Disneyjr/go-api-boilerplate" target="_blank"
+                            <a href="https://github.com/Disneyjr/go-api-boilerplate" target="_blank" rel="noopener"
                                 class="btn btn-primary">Ver Projeto</a>
                         </div>
                     </div>
@@ -219,7 +232,7 @@
                             <span class="tech-tag">Concorrência</span>
                         </div>
                         <div class="project-links">
-                            <a href="https://github.com/Disneyjr/Client-Server" target="_blank"
+                            <a href="https://github.com/Disneyjr/Client-Server" target="_blank" rel="noopener"
                                 class="btn btn-primary">Ver Projeto</a>
                         </div>
                     </div>
@@ -240,8 +253,8 @@
                             <span class="tech-tag">Dev-Ops</span>
                         </div>
                         <div class="project-links">
-                            <a href="https://github.com/Disneyjr/dcm-cli" target="_blank" class="btn btn-primary">Ver
-                                Projeto</a>
+                            <a href="https://github.com/Disneyjr/dcm-cli" target="_blank" rel="noopener"
+                                class="btn btn-primary">Ver Projeto</a>
                         </div>
                     </div>
                 </div>
@@ -249,10 +262,84 @@
         </div>
     </section>
 
+    <!-- Blog Latest Posts Section -->
+    <section id="blog-preview" class="blog-preview-section">
+        <div class="container">
+            <div class="section-header-flex">
+                <div>
+                    <h2>Últimas Publicações no Blog</h2>
+                    <p class="section-subtitle">
+                        Artigos técnicos no formato <strong>Dual-Mode</strong>: compare o meu texto original com a versão expandida por IA (registrando modelo LLM e nível de <em>effort</em>).
+                    </p>
+                </div>
+                <a href="./blog/" class="btn btn-secondary">Ver Todos os Posts →</a>
+            </div>
+
+            {{- $blogPosts := where .Site.RegularPages "Section" "blog" -}}
+            {{- if gt (len $blogPosts) 0 -}}
+            <div class="home-blog-grid">
+                {{- range first 3 $blogPosts -}}
+                {{- $aiContent := "" -}}
+                {{- with .Params.ai_content }}{{ $aiContent = strings.TrimSpace . }}{{ end -}}
+                {{- $hasAI := ne $aiContent "" -}}
+                {{- $aiModel := .Params.ai_model | default "" -}}
+                {{- $aiEffort := .Params.ai_effort | default "" -}}
+                {{- with .Params.ai_meta -}}
+                    {{- with .model }}{{ $aiModel = . }}{{ end -}}
+                    {{- with .effort }}{{ $aiEffort = . }}{{ end -}}
+                {{- end -}}
+                {{- $readingTime := .ReadingTime -}}
+                {{- if lt $readingTime 1 }}{{ $readingTime = 1 }}{{ end -}}
+                <article class="home-blog-card">
+                    <div class="home-blog-badges">
+                        {{- if $hasAI -}}
+                        <span class="home-badge-dual">⚡ Dual-Mode</span>
+                        {{- with $aiModel -}}
+                        <span class="home-badge-llm">🤖 {{ . }}</span>
+                        {{- end -}}
+                        {{- with $aiEffort -}}
+                        <span class="home-badge-effort effort-{{ . | lower }}">Effort: {{ . | upper }}</span>
+                        {{- end -}}
+                        {{- else -}}
+                        <span class="home-badge-human">👤 Autoral</span>
+                        {{- end -}}
+                    </div>
+
+                    <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+                    <div class="home-blog-meta">
+                        <span>📅 {{ .Date.Format "02/01/2006" }}</span>
+                        <span>•</span>
+                        <span>⏱️ {{ $readingTime }} min de leitura</span>
+                    </div>
+                    <p>{{ .Description | default .Summary | plainify | htmlUnescape | truncate 160 }}</p>
+
+                    {{- with .Params.tags -}}
+                    <div class="project-tech">
+                        {{- range first 4 . -}}
+                        <span class="tech-tag">#{{ . }}</span>
+                        {{- end -}}
+                    </div>
+                    {{- end -}}
+
+                    <div class="project-links home-blog-actions">
+                        <a href="{{ .RelPermalink }}" class="btn btn-primary">👤 Ler Original</a>
+                        {{- if $hasAI -}}
+                        <a href="{{ .RelPermalink }}?view=ai" class="btn btn-secondary">🤖 Versão IA</a>
+                        {{- end -}}
+                    </div>
+                </article>
+                {{- end -}}
+            </div>
+            {{- else -}}
+            <p class="about-content">Novas publicações em breve! <a href="./blog/">Acesse o Blog</a>.</p>
+            {{- end -}}
+        </div>
+    </section>
+
     <!-- Education Section -->
     <section id="education">
         <div class="container">
-            <h2>Educação & Certificações</h2>
+            <h2>Educação &amp; Certificações</h2>
 
             <div class="education-item">
                 <h3>Pós-Graduação Go Expert</h3>
@@ -292,10 +379,11 @@
         <p>Disney Teixeira da Silva Junior | Software Engineer</p>
         <div class="footer-links">
             <a href="mailto:dineyteixeira@gmail.com">Email</a>
-            <a href="https://linkedin.com/in/disney-teixeira" target="_blank">LinkedIn</a>
-            <a href="https://github.com/Disneyjr" target="_blank">GitHub</a>
+            <a href="https://linkedin.com/in/disney-teixeira" target="_blank" rel="noopener">LinkedIn</a>
+            <a href="https://github.com/Disneyjr" target="_blank" rel="noopener">GitHub</a>
+            <a href="./blog/">Blog</a>
         </div>
-        <p style="font-size: 0.9em; color: #95a5a6; margin-top: 15px;">© 2025 Disney Teixeira. Todos os direitos
+        <p style="font-size: 0.9em; color: #95a5a6; margin-top: 15px;">© {{ now.Year }} Disney Teixeira. Todos os direitos
             reservados.</p>
     </footer>
 </body>

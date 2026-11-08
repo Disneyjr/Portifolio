@@ -1,63 +1,79 @@
-# Guia do Projeto: Portfólio + Blog (Hugo)
+# Guia do Projeto: Portfólio + Blog Dual-Mode (Hugo)
 
-Este repositório contém o código-fonte do portfólio pessoal e do blog integrados. A página inicial (Portfólio) é construída de forma estática com HTML e CSS nativos para máxima performance e controle visual, enquanto a seção do Blog é gerenciada pelo poderoso gerador de sites estáticos **Hugo**, utilizando o tema Ananke customizado.
+Este repositório contém o código-fonte do portfólio pessoal e do blog técnico integrados. A página inicial (Portfólio) possui layout customizado conectado dinamicamente às últimas publicações do blog, enquanto a seção do Blog utiliza o gerador de sites estáticos **Hugo** com suporte ao modo **Dual-Mode (Humano + IA)**.
+
+---
 
 ## 🏗️ Estrutura de Diretórios
 
-As principais pastas e arquivos para você gerenciar o projeto:
+* **`layouts/index.html`**: Página principal do Portfólio (`/`). Renderiza as seções profissionais e injeta automaticamente os 3 artigos mais recentes do blog.
+* **`layouts/blog/`**:
+  * `single.html`: Template de post individual com alternância **Original (Humano)**, **Versão IA** e **Comparação Lado a Lado** (`?view=ai` ou `?view=split`), além de badges de **Modelo LLM** e **Thinking Effort** e botão de copiar código.
+  * `list.html` e `summary.html`: Listagem de artigos em grid responsivo com indicadores de tempo de leitura, tags e metadados da IA.
+* **`layouts/_partials/`**: Cabeçalhos e meta tags de SEO (OpenGraph, Twitter Cards, Canonical URL e Favicons).
+* **`static/`**: Arquivos estáticos globais (`styles.css` para o portfólio, `css/blog-custom.css` para o blog e `Imagens/`).
+* **`content/blog/`**: Artigos do blog escritos em Markdown (`.md`).
+* **`archetypes/default.md`**: Template padrão usado ao criar novos posts com `hugo new`.
+* **`hugo.yaml`**: Configuração central do Hugo (SEO, Highlight de código Chroma `github-dark`, taxonomias e posts relacionados).
+* **`.github/workflows/pages.yml`**: Pipeline CI/CD que compila e publica o site no GitHub Pages a cada push/merge na branch `main`.
+* **`docs/TELEGRAM_BOT_INTEGRATION.md`**: Documentação completa da arquitetura do Bot do Telegram + Gemini API + GitHub PR para publicação automatizada.
 
-*   **`layouts/index.html`**: O coração do seu portfólio. O Hugo está configurado para priorizar este arquivo como a página principal `/`, mantendo a capa original do seu site intacta.
-*   **`static/`**: Arquivos estáticos globais (CSS, JS, Imagens). Tudo que estiver aqui será copiado diretamente para a raiz do site. Por exemplo, `static/styles.css` (visual do portfólio) e `static/css/blog-custom.css` (visual extra do blog).
-*   **`content/blog/`**: O diretório onde ficam os seus posts do blog escritos em Markdown (`.md`).
-*   **`themes/ananke/`**: O tema base do blog.
-*   **`hugo.yaml`**: Arquivo central de configuração do Hugo (baseURL, título, configuração do menu principal).
-*   **`.gitignore`**: Arquivo que instrui o Git a ignorar pastas geradas automaticamente (como `public/` e `resources/`), mantendo o repositório limpo.
-*   **`.github/workflows/pages.yml`**: A action do GitHub que orquestra o build e o deploy automaticamente no GitHub Pages em cada `push` na branch principal.
+---
 
 ## 🚀 Desenvolvimento Local
 
-Para rodar e testar o site no seu computador antes de publicar:
-
-1. Abra o terminal na raiz do projeto (pasta `Portifolio`).
-2. Inicie o servidor embutido do Hugo, habilitando a visualização de rascunhos com a flag `-D`:
+1. Abra o terminal na raiz do projeto.
+2. Inicie o servidor do Hugo (incluindo rascunhos com `-D`):
    ```bash
    hugo server -D
    ```
-3. Acesse as URLs no seu navegador:
-   *   **Portfólio (Página Inicial):** [http://localhost:1313/](http://localhost:1313/)
-   *   **Blog:** [http://localhost:1313/blog/](http://localhost:1313/blog/)
+3. Acesse no navegador:
+   * **Portfólio (Home):** `http://localhost:1313/`
+   * **Blog:** `http://localhost:1313/blog/`
 
-As alterações no código possuem _Live Reload_. Ao salvar qualquer arquivo (HTML, CSS ou Markdown), o navegador será recarregado automaticamente.
+---
 
-## ✍️ Gestão de Conteúdo
+## ✍️ Criando um Novo Post Dual-Mode (Humano + IA)
 
-### Editando o Portfólio
-Para atualizar suas informações pessoais, tecnologias ou adicionar novos projetos à capa principal:
-1. Edite o conteúdo no arquivo `layouts/index.html`.
-2. Para alterações de identidade visual ou layout da capa, modifique o `static/styles.css`.
-
-### Criando um Novo Post no Blog
-Recomenda-se utilizar a CLI do Hugo para facilitar a criação, pois ele já injeta o cabeçalho base (_front matter_) no arquivo:
+Crie o arquivo usando a CLI do Hugo:
 
 ```bash
-hugo new blog/o-titulo-do-seu-post.md
+hugo new blog/meu-novo-artigo.md
 ```
 
-1. O arquivo será criado em `content/blog/o-titulo-do-seu-post.md`.
-2. Abra o arquivo em seu editor.
-3. Altere o título se necessário. **Importante:** Mude a variável `draft` para `false` para que o post se torne público durante a publicação (`draft: false`).
-4. Escreva o conteúdo do texto, estruturado usando Markdown, logo abaixo dos traços `---`.
+O arquivo gerado em `content/blog/meu-novo-artigo.md` utiliza o seguinte formato de **Front Matter**:
 
-## 🌐 Deploy / Publicação
+```yaml
+---
+title: "Arquitetura de Microserviços em Go"
+date: "2026-11-08T20:00:00-03:00"
+draft: false
+description: "Resumo curto do artigo para SEO e cards de preview."
+tags:
+  - "Go"
+  - "Microservices"
+  - "Backend"
+ai_meta:
+  model: "gemini-2.5-pro"   # Modelo utilizado para gerar a versão IA
+  effort: "high"            # Nível de esforço/raciocínio: low | medium | high
+ai_content: |
+  ## Versão Gerada pela LLM
 
-O processo de hospedagem está simplificado e automatizado via CI/CD. Você não precisa se preocupar em rodar o comando `hugo` e cuidar de diretórios gerados.
+  Texto completo em Markdown gerado pelo Gemini...
+---
 
-Concluído o seu trabalho, basta enviar as alterações para o GitHub:
-
-```bash
-git add .
-git commit -m "feat: Novo post no blog sobre Golang"
-git push
+Aqui entra o seu texto original (humano), escrito em Markdown.
 ```
 
-Pronto! Ao receber o código, o GitHub Actions assumirá o comando, baixará a versão oficial do Hugo, realizará o _build_ completo e hospedará de forma transparente na sua URL de destino: `https://disneyjr.github.io/`.
+### Modos de Visualização por URL
+* **Versão Original (Padrão):** `/blog/meu-novo-artigo/`
+* **Link Direto para Versão IA:** `/blog/meu-novo-artigo/?view=ai`
+* **Comparação Lado a Lado (Desktop):** `/blog/meu-novo-artigo/?view=split`
+
+---
+
+## 🤖 Publicação Automatizada via Telegram + Gemini + GitHub PR
+
+O planejamento completo da integração para enviar textos pelo Telegram, gerar a versão expandida no Gemini (registrando `model` e `effort`), abrir o Pull Request e aprovar o merge pelo próprio chat está documentado em:
+
+👉 **[`docs/TELEGRAM_BOT_INTEGRATION.md`](docs/TELEGRAM_BOT_INTEGRATION.md)**
